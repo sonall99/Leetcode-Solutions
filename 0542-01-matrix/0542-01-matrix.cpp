@@ -1,3 +1,7 @@
+//TC=O(N*M + N*M*4);
+//SC=0(N*M)
+
+
 class Solution {
 public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
@@ -7,6 +11,7 @@ public:
         vector<vector<int>>vis(m,vector<int>(n,0));
         vector<vector<int>>dis(m,vector<int>(n,0));
         for(int i=0;i<m;i++){
+
             for(int j=0;j<n;j++){
                 if(mat[i][j]==0){
                     q.push({{i,j},0});
@@ -21,18 +26,18 @@ public:
             int c=q.front().first.second;
             int d=q.front().second;
             dis[r][c]=d;
-            q.pop();
+             q.pop();
             for(int i=0;i<4;i++){
                 int nr=r+dr[i];
                 int nc=c+dc[i];
-            if(nr>=0&&nr<m&&nc>=0&&nc<n&&mat[nr][nc]==1&&!vis[nr][nc]){
+              if(nr>=0&&nr<m&&nc>=0&&nc<n&&mat[nr][nc]==1&&!vis[nr][nc]){
 
                 q.push({{nr,nc},d+1});
                 vis[nr][nc]=1;
+              }
             }
-
-        }
         }
         return dis;
+
     }
 };
