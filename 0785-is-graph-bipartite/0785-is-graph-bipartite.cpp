@@ -1,39 +1,37 @@
 class Solution {
-    bool check(vector<vector<int>>& graph,vector<int>vis,vector<int>clr,int num){
+    bool check(vector<vector<int>>& graph,vector<int>&vis,int num,vector<int>&color){
         queue<int>q;
-        q.push(num);
-        clr[num]=0;
         vis[num]=1;
+        color[num]=0;
+        q.push(num);
         while(!q.empty()){
             int node=q.front();
             q.pop();
-            for(int i:graph[node]){
-                if(!vis[i]){
-                    vis[i]=1;
-                    clr[i]=!clr[node];
-                    q.push(i);
-                }
-                else{
-                    if(clr[i]==clr[node]) return false;
-                }
+        for(int i:graph[node]){
+            if(!vis[i]){
+                vis[i]=1;
+                color[i]=!color[node];
+                q.push(i);
             }
-            
-
-        }   
-        return true;     
-    
+            else{
+                if(color[i]==color[node]) return false;
+            }
+        }
+        }
+        return true;
     }
 public:
     bool isBipartite(vector<vector<int>>& graph) {
-        int n=graph.size();
-        vector<int>vis(n,0);
-        vector<int>clr(n,-1);
-        for(int i=0;i<n;i++){
-            if(!vis[i]){
-                if(!check(graph,vis,clr,i)) return false;
+        int m=graph.size();
+        vector<int>color(m,-1);
+        int n=graph[0].size();
+        vector<int>vis(m,0);
+        for(int i=0;i<m;i++){
+                if(!vis[i]){
+                    if(!check(graph,vis,i,color))return false;
             }
+
         }
         return true;
-   
     }
 };
