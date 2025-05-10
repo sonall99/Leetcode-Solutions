@@ -1,25 +1,23 @@
 class Solution {
-    private:
-    void combi(int i,int tar,vector<int>& arr,vector<int>&ds,vector<vector<int>>&ans){
-        if(i==arr.size()){
-            if(tar==0) ans.push_back(ds);
+    void combi(int ind,vector<int>& candidates, int target,vector<int>&ds,vector<vector<int>>&ans){
+        if(target==0){
+            ans.push_back(ds);
             return;
-
         }
-        if(tar>=arr[i]){
-            ds.push_back(arr[i]);
-            combi(i,tar-arr[i],arr,ds,ans);
+        if (ind == candidates.size()) return;
+        if(candidates[ind]<=target){
+            ds.push_back(candidates[ind]);
+            combi(ind, candidates, target - candidates[ind], ds, ans);
             ds.pop_back();
-
         }
-        combi(i+1,tar,arr,ds,ans);
+        combi(ind+1,candidates,target,ds,ans);
 
     }
 public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>>ans;
         vector<int>ds;
-        combi(0,target,candidates,ds,ans);
+        combi(0,candidates,target,ds,ans);
         return ans;
 
         
