@@ -4,12 +4,13 @@ int target=0;
 // vector<vector<int>>dp;
 int dp[201][20000+1];
 bool solve(vector<int>&nums,int idx,int n,int sum){
-    if(idx>=n || target<0) return false;
+    if(idx>=n || sum>target) return false;
     if(target==sum)return true;
     if(dp[idx][sum] != -1)return dp[idx][sum];
     int take =solve(nums,idx+1,n,sum+nums[idx]);
     int notTake=solve(nums,idx+1,n,sum);
-    return dp[idx][sum]= take || notTake;
+    dp[idx][sum]= take || notTake;
+    return dp[idx][sum];
 }
 public:
     bool canPartition(vector<int>& nums) {
