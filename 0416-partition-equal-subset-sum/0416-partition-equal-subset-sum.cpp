@@ -2,7 +2,7 @@ class Solution {
 private:
 int target=0;
 // vector<vector<int>>dp;
-int dp[201][10000+10];
+int dp[201][100000];
 bool solve(vector<int>&nums,int idx,int n,int sum){
     if(idx>=n || target<0) return false;
     if(target==sum)return true;
