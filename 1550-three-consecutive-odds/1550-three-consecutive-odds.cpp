@@ -10,6 +10,8 @@ public:
                 c++;
             }
         }
+         if(c>=3) return true;
+
         return false;
         
     }
