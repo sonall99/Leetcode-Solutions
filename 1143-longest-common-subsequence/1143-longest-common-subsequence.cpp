@@ -2,7 +2,7 @@ class Solution {
 int ans=0;
 vector<vector<int>>dp;
 int solve(string s,string t,int i,int j,int n,int m){
-    if(i==n || j==m){
+    if(i>=n || j>=m){
         // if(s[i]==s[j])return 1;
         // else 
         return 0;
@@ -25,8 +25,8 @@ int solve(string s,string t,int i,int j,int n,int m){
 public:
     int longestCommonSubsequence(string text1, string text2) {
         // memset(dp,-1,sizeof(dp))
-        if(text1=="ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc") return 0;
-        dp.assign(text1.size()+1,vector<int>(text2.size()+1,-1));
+       int x=min(text1.size(),text2.size());
+        dp.assign(text1.size(),vector<int>(text2.size(),-1));
         return solve(text1,text2,0,0,text1.size(),text2.size());
       
         
