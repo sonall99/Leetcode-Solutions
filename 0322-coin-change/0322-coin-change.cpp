@@ -1,38 +1,29 @@
 class Solution {
-    int mini=INT_MAX;
-    void solve(vector<int>& coins,vector<int>& ds,int amt,int ind,vector<vector<int>>ans,int n){
-        if(ind==n) return ;
-        if(amt==0){
-            ans.push_back(ds);
-            // for(int i:ds){
-            //     cout<<i;
-            // }
-            // cout<<endl;
-            int x=ds.size();
-            mini=min(mini,x);
-            return;
-            
+    int dp[13][10001];
+    int n;
+    int rec(int ind,vector<int>& coins, int amount){
+        if(amount==0) return 0;
+        if(ind>=n &&amount!=0) return INT_MAX-1;
+        int res=0;
+        if(dp[ind][amount]!=-1) return dp[ind][amount];
+        if(coins[ind]>amount){
+            int not_take=0+rec(ind+1,coins,amount);
+            res=not_take;
         }
-        if(coins[ind]<=amt){
-            ds.push_back(coins[ind]);
-            solve(coins,ds,amt-coins[ind],ind,ans,n);
-            ds.pop_back();
+        else if(coins[ind]<=amount){
+            int take=1+rec(ind,coins,amount-coins[ind]);
+            int not_take=0+rec(ind+1,coins,amount);
+            res=min(take,not_take);
         }
-        solve(coins,ds,amt,ind+1,ans,n);
+        return dp[ind][amount]=res;
 
+        
     }
 public:
     int coinChange(vector<int>& coins, int amount) {
-        int n=coins.size();
-        vector<int>ds;
-        vector<vector<int>>ans;
-        solve(coins,ds,amount,0,ans,n);
-        // int mini=INT_MAX;
-        // for(vector<int> i:ans){
-        //     int s=i.size();
-        //     mini=min(mini,s);
-        // }
-        return mini==INT_MAX?-1:mini;
-        
+        memset(dp,-1,sizeof(dp));
+        n=coins.size();
+        int ans= rec(0,coins,amount);
+        return (ans==INT_MAX-1)?-1:ans;
     }
 };
