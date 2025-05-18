@@ -4,9 +4,8 @@ class Solution {
     int dp[301];
     bool solve(int ind,string &s,vector<string>& wordDict){
         if(ind>=n) return true;
-        if(wordset.find(s)!=wordset.end()) return true;
         if(dp[ind]!=-1) return dp[ind];
-        for(int i=1;i<n-ind;i++){
+        for(int i=1;i<=n-ind;i++){
             string substring=s.substr(ind,i);
             if(wordset.find(substring)!=wordset.end()&&solve(ind+i,s,wordDict)){
                 return dp[ind]=true;
