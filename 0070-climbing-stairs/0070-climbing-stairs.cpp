@@ -1,15 +1,23 @@
 class Solution {
-int dp[50];
-int solve(int n){
-    if(n==0)return 1;
-    if(n<0)return 0;
-    if(dp[n]!=-1)return dp[n];
-    return  dp[n]=solve(n-1)+solve(n-2);
-}
+    int dp[46];
+    int recursion(int level,int &n){
+        if(level==n) return 1;
+        if(level>n) return 0;
+        int ans=0;
+        if(dp[level]!=-1) return dp[level];
+        for(int i=1;i<=2;i++){
+            if((level+i)<=n){
+                int ways=recursion(level+i,n);
+                ans+=ways;
+            }
+        }
+        dp[level]=ans;
+        return ans;
+    }
 public:
     int climbStairs(int n) {
         memset(dp,-1,sizeof(dp));
-        return solve(n);
+        return recursion(0,n);
         
     }
 };
