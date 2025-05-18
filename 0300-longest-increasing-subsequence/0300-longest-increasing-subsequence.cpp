@@ -1,23 +1,22 @@
 class Solution {
-    int dp[2501][2501];
-    int n;
-    int lis(int ind,vector<int>& nums,int prev){
-        if(ind>=n) return 0;
-        int take=0;
-        if(prev!=-1 && dp[ind][prev]!=-1) return dp[ind][prev];
-        if(prev==-1 ||nums[prev]<nums[ind]){
-             take=1+lis(ind+1,nums,ind);
-        }
-        int not_take=lis(ind+1,nums,prev);
-        if(prev!=-1){
-            return dp[ind][prev]=max(take,not_take);
-        }
-        return max(take,not_take);
-    }
 public:
+int n;
+int dp[2501][2501];
+int LIS(int ind,vector<int>&nums,int par){
+    if(ind>=n) return 0;
+    if(par!=-1 && dp[ind][par]!=-1) return dp[ind][par];
+    int take=0;
+    if(par==-1 ||nums[par]<nums[ind]){
+        take=1+LIS(ind+1, nums,ind);
+
+    }
+    int not_take=LIS(ind+1,nums,ind);
+    if(par==-1) return max(take,not_take);
+    return dp[ind][par]=max(take,not_take);
+}
     int lengthOfLIS(vector<int>& nums) {
+        n=nums.size();
         memset(dp,-1,sizeof(dp));
-         n=nums.size();
-        return lis(0,nums,-1);
+        return LIS(0,nums,-1);
     }
 };
