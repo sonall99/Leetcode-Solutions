@@ -1,5 +1,6 @@
 class Solution {
-    pair<int,int> get_cord(int x,int n){
+public:
+pair<int,int> findcord(int x,int n){
        int  row=(n-1)-((x-1)/n);
        int col=(x-1)%n;
        if((row%2 &&n%2) ||(row%2==0 &&n%2==0)){
@@ -8,36 +9,35 @@ class Solution {
        return{row,col};
 
     }
-public:
     int snakesAndLadders(vector<vector<int>>& board) {
-        int n=board.size();
-        vector<vector<int>>vis(n,vector<int>(n,0));
         queue<int>q;
+        int n=board.size();
         q.push(1);
         int level=0;
-        vis[n-1][0]=1;
+        vector<vector<int>>vis(n,vector<int>(n,0));
+        vis[n-1][0] =1;
         while(!q.empty()){
             int size=q.size();
             while(size--){
-                int curr_val=q.front();
+                int node=q.front();
                 q.pop();
-                if(curr_val==n*n) return level;
+                if(node==n*n) return level;
                 for(int i=1;i<=6;i++){
-                    int new_val=curr_val+i;
-                    if(new_val>n*n) break;
-                    pair<int,int>cord=get_cord(new_val,n);
+                    int newval=node+i;
+                    if(newval>n*n) break;
+                    pair<int,int>cord=findcord(newval,n);
                     int x=cord.first;
                     int y=cord.second;
                     if(!vis[x][y]){
-                        if(board[x][y]==-1){
-                             q.push(new_val);
-                             vis[x][y]=1;
-                        }
-                        else {
-                            q.push(board[x][y]);
-                            vis[x][y]=1;}
+                    if(board[x][y]==-1){
+                        q.push(newval);
+                        vis[x][y]=1;
                     }
-
+                    else{
+                        q.push(board[x][y]);
+                        vis[x][y]=1;
+                    }
+                    }
                 }
             }
             level++;
