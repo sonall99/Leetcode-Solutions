@@ -1,5 +1,5 @@
 class Solution {
-int dp[101];
+vector<int>dp;
 private:
 int Recursion(vector<int>&nums,int idx,int n){
     if(idx>=n)return 0;
@@ -13,7 +13,9 @@ int Recursion(vector<int>&nums,int idx,int n){
 
 public:
     int rob(vector<int>& nums) {
-        memset(dp,-1,sizeof(dp));
+        // memset(dp,-1,sizeof(dp));
+        int n=nums.size();
+        dp.assign(n+1,-1);
         for(auto i:dp)cout<<i<<endl;
         return Recursion(nums,0,nums.size());
         
