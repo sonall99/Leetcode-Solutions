@@ -6,7 +6,7 @@ public:
         for(int i=0;i<nums.size();i++){
             if(i>maxreach) return false;
             maxreach=max(maxreach,i+nums[i]);
-            if(i==n-1) return true;
+            if(i==nums.size()-1) return true;
         }
         return true;
     }
