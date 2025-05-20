@@ -21,9 +21,11 @@ public:
         if (words.size() != pattern.size())
             return false;
         map<char,string> mp;
+        map<string,char> mp2;
         for(int i=0;i<pattern.size();i++){
-            if(mp.find(pattern[i])!=mp.end() && mp[pattern[i]]!=words[i]) return false;
+            if(mp.find(pattern[i])!=mp.end() && mp[pattern[i]]!=words[i] ||( mp2.find(words[i])!=mp2.end() && mp2[words[i]] !=pattern[i])) return false;
             mp[pattern[i]]=words[i];
+            mp2[words[i]]=pattern[i];
         }
         return true;
     }
