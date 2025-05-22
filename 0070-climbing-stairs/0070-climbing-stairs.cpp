@@ -1,23 +1,21 @@
 class Solution {
-    int dp[46];
-    int recursion(int level,int &n){
-        if(level==n) return 1;
-        if(level>n) return 0;
-        int ans=0;
-        if(dp[level]!=-1) return dp[level];
-        for(int i=1;i<=2;i++){
-            if((level+i)<=n){
-                int ways=recursion(level+i,n);
-                ans+=ways;
-            }
-        }
-        dp[level]=ans;
-        return ans;
-    }
 public:
+int dp[46];
+int ways(int steps,int n){
+    if(steps==n){
+        return 1;
+    }
+    int dist_ways=0;
+    if(steps>n)return 0;
+    if(dp[steps]!=-1) return dp[steps];
+    for(int i=1;i<=2;i++){
+        dist_ways+=(ways(steps+i,n));
+    }
+    return dp[steps]=dist_ways;
+}
     int climbStairs(int n) {
         memset(dp,-1,sizeof(dp));
-        return recursion(0,n);
+        return ways(0,n);
         
     }
 };
