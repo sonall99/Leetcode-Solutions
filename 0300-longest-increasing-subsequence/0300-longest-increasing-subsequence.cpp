@@ -10,7 +10,7 @@ int LIS(int ind,vector<int>&nums,int par){
         take=1+LIS(ind+1, nums,ind);
 
     }
-    int not_take=LIS(ind+1,nums,ind);
+    int not_take=LIS(ind+1,nums,par);
     if(par==-1) return max(take,not_take);
     return dp[ind][par]=max(take,not_take);
 }
