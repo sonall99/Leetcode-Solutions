@@ -1,29 +1,19 @@
 class Solution {
-int dp[201][201];
-private:
-int Solve(vector<vector<int>>&triangle,int row,int col,int n,int m){
-    // if(row>=n || col >=m)return 1e9;
-    if(row == n-1)return triangle[row][col];
-    if(dp[row][col] !=-1)return dp[row][col];
-    int case1=1e9;
-    int case2=1e9;
-    if(row+1<n)
-     case1= Solve(triangle,row+1,col,n,m);
-     if(row+1<n && col+1<m)
-     case2= Solve(triangle,row+1,col+1,n,m);
-    return dp[row][col]=triangle[row][col]+min(case1,case2);
-
-}
 public:
+int dp[201][201];
+    int min_path(int r,int c,vector<vector<int>>& grid,int m ,int n){
+        if(r==m-1) return grid[r][c];
+        if(dp[r][c]!=-1) return dp[r][c];
+        int case1=INT_MAX,case2=INT_MAX;
+        if(r+1<m)  case1=min_path(r+1,c,grid,m,n);
+        if(r+1 &&c+1<n) case2=min_path(r+1,c+1,grid,m,n);
+        return dp[r][c]=grid[r][c]+min(case1,case2);
+
+    }
     int minimumTotal(vector<vector<int>>& triangle) {
-        int n=triangle.size();
-        int m=triangle[0].size();
-        // if(n==1){
-        //     vector<int >arr=triangle[0];
-        //     return *min_element(arr.begin(),arr.end());
-        // }
         memset(dp,-1,sizeof(dp));
-        return Solve(triangle,0,0,n,n);
-        
+        int m=triangle.size();
+        int n=triangle[0].size();
+        return min_path(0,0,triangle,m,m);
     }
 };
