@@ -2,7 +2,6 @@ class Solution {
 int dp[201][201];
 private:
 int Solve(vector<vector<int>>&triangle,int row,int col,int n,int m){
-    // if(row>=n || col >=m)return 1e9;
     if(row == n-1)return triangle[row][col];
     if(dp[row][col] !=-1)return dp[row][col];
     int case1=1e9;
@@ -18,10 +17,6 @@ public:
     int minimumTotal(vector<vector<int>>& triangle) {
         int n=triangle.size();
         int m=triangle[0].size();
-        // if(n==1){
-        //     vector<int >arr=triangle[0];
-        //     return *min_element(arr.begin(),arr.end());
-        // }
         memset(dp,-1,sizeof(dp));
         return Solve(triangle,0,0,n,n);
         
