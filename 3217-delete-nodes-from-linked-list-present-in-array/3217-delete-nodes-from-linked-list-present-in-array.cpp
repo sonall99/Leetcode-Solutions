@@ -10,24 +10,17 @@
  */
 class Solution {
 public:
+ListNode* check(set<int>&st,ListNode * head){
+    if(!head) return NULL;
+    head->next=check(st,head->next);
+    if(st.count(head->val)){
+        return head->next;
+    }
+    return head;
+}
     ListNode* modifiedList(vector<int>& nums, ListNode* head) {
-        set<int> s;
-        for (int i : nums) {
-            s.insert(i);
-        }
-        ListNode* dn = new ListNode(-1);
-        dn->next = head;
-        ListNode* temp = dn;
-        while (temp->next) {
-            if (s.find(temp->next->val) != s.end()) {
-                ListNode* d = temp->next;
-                temp->next = temp->next->next;
-                delete (d);
+        set<int>st(nums.begin(),nums.end());
+        return check(st,head);
 
-            } else {
-                temp = temp->next;
-            }
-        }
-        return dn->next;
     }
 };
